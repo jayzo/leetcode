@@ -1,5 +1,7 @@
 package com.zuojie.leetcode.microsoft;
 
+import com.sun.deploy.util.StringUtils;
+
 /**
  * @author zhili ZUOJIE
  * @date 2020/4/12
@@ -49,6 +51,62 @@ public class Solutions {
         //著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
     }
 
+    /**
+     * https://leetcode-cn.com/explore/interview/card/microsoft/118/array-and-strings/436/
+     * @param str
+     * @return
+     */
+    public int myAtoi(String str) {
+        int INT_MAX = 2147483647;
+        int INT_MIN = -2147483648;
+        int size = "2147483647".length();
+
+        int ret = 0;
+        // 数字的ascii码范围是48 - 57.
+        // 去掉空格
+        str = str.trim();
+        if(null == str || "".equals(str)){
+            return 0;
+        }
+        boolean positive = true;
+        if('-' == str.charAt(0)){
+            str = str.substring(1);
+            positive = false;
+        }else if('+' == str.charAt(0)){
+            str = str.substring(1);
+            positive = true;
+        }
+        if(null == str || "".equals(str)){
+            return 0;
+        }
+        // 去掉多余的0
+        str = str.replaceAll("^0+","");
+        int idx = 0;
+        for(int i = 0; i< str.length(); i++){
+            if(str.charAt(i) >=48 && str.charAt(i) <= 57){
+                idx++;
+            }else{
+                break;
+            }
+        }
+        if(0 == idx){
+            return 0;
+        }
+        str = str.substring(0,idx);
+        if(str.length() > size){
+            ret = positive ? INT_MAX : INT_MIN;
+        }else if(str.length() == size){
+            if(positive){
+                ret = Long.parseLong(str) >= INT_MAX ? INT_MAX : Integer.parseInt(str);
+            }else {
+                ret =  -Long.parseLong(str) <= INT_MIN ? INT_MIN : -Integer.parseInt(str);
+            }
+        }else {
+            ret = positive ? Integer.parseInt(str) : -Integer.parseInt(str);
+        }
+        return ret;
+    }
+
     public static void main(String[] args){
         Solutions solutions = new Solutions();
         String ret = solutions.longestPalindrome("babad");
@@ -57,5 +115,22 @@ public class Solutions {
         System.out.println(solutions.longestPalindrome("bba"));
         System.out.println(solutions.longestPalindrome("aabbaa"));
         System.out.println(solutions.longestPalindrome("aaaa"));
+
+        System.out.println(solutions.myAtoi("42"));
+        System.out.println(solutions.myAtoi("   -42"));
+        System.out.println(solutions.myAtoi("4193 with words"));
+        System.out.println(solutions.myAtoi("words and 987"));
+        System.out.println(solutions.myAtoi("-91283472332"));
+        System.out.println(solutions.myAtoi("3147483647"));
+        System.out.println(solutions.myAtoi("3.1415"));
+        System.out.println(solutions.myAtoi("+3.1415"));
+        System.out.println(solutions.myAtoi("-3.1415"));
+        System.out.println(solutions.myAtoi("-"));
+        System.out.println(solutions.myAtoi("+"));
+        System.out.println(solutions.myAtoi("  0000000000012345678"));
+        System.out.println(solutions.myAtoi("-000000000000001"));
+        System.out.println(solutions.myAtoi("-+1"));
+        System.out.println(solutions.myAtoi("-2147483648"));
+        System.out.println(solutions.myAtoi("2147483647"));
     }
 }
