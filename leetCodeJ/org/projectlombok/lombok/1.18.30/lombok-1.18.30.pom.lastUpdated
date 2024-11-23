@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Nov 23 20:28:57 CST 2024
+@default-aliyunmaven-https\://maven.aliyun.com/repository/central/.lastUpdated=1732364937783
+https\://maven.aliyun.com/repository/central/.error=Could not transfer artifact org.projectlombok\:lombok\:pom\:1.18.30 from/to aliyunmaven (https\://maven.aliyun.com/repository/central)\: maven.aliyun.com\: nodename nor servname provided, or not known
