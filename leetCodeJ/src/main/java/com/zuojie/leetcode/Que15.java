@@ -2,10 +2,8 @@ package com.zuojie.leetcode;
 
 import com.zuojie.demo.JsonUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.EMPTY_LIST;
 
@@ -17,37 +15,47 @@ import static java.util.Collections.EMPTY_LIST;
 public class Que15 {
     public List<List<Integer>> threeSum(int[] nums) {
         if (nums.length < 3) {
-            return List.of(EMPTY_LIST);
+            return new ArrayList<>();
         }
         if (nums.length == 3) {
             if (nums[0] + nums[1] + nums[2] == 0) {
-                return List.of(Arrays.asList(0, 1, 2));
+                return List.of(Arrays.asList(nums[0] , nums[1] , nums[2]));
             }
         }
+        Arrays.sort(nums);
         List<List<Integer>> ret = new ArrayList<>();
-        for (int i = 0; i< nums.length; i++) {
-            List<Integer> leftList = findLeftList(nums, i);
-            if (!leftList.isEmpty()) {
-                ret.add(leftList);
+        HashSet<String> added = new HashSet<>();
+        for (int i = 0 ; i< nums.length; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                    String key = nums[i] +"_" + nums[j] +"_" + nums[k];
+//                    System.out.println(key);
+                    if (!added.contains(key)) {
+                        ret.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                        added.add(key);
+                    }
+                    j++;
+                    k--;
+                } else if (sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
             }
         }
         return ret;
-
     }
 
-    /**
-     * 从 nums里, 以cur为第一个元素, 从cur+1开始找到三个元素加和为0的元素
-     * @param nums
-     * @param cur
-     * @return
-     */
-    private List<Integer> findLeftList(int[] nums, int cur) {
-        return null;
-    }
+
 
     public static void main(String[] args) {
         Que15 que = new Que15();
-        int[] nums = {0,1,2,-1,3,-5};
+//        int[] nums = {2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10};
+        int[] nums = {2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10};
+//        int[] nums = {0, 0, 0, 0};
         List<List<Integer>> ret = que.threeSum(nums);
         System.out.printf(JsonUtil.toJsonString(ret));
     }
