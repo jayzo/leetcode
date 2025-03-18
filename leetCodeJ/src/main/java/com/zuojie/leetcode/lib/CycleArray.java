@@ -1,4 +1,4 @@
-package com.zuojie.leetcode;
+package com.zuojie.leetcode.lib;
 
 public class CycleArray {
     int start;
