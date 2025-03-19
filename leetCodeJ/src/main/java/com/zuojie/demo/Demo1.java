@@ -1,30 +1,30 @@
 package com.zuojie.demo;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by jay on 17/2/15.
  */
-@MyAnnotation(color = "blue")
+
 public class Demo1 {
     public static void main(String[] args){
-        //检查类AnnotationTest是否含有@MyAnnotation注解
-        if(Demo1.class.isAnnotationPresent(MyAnnotation.class)) {
-            //若存在就获取注解, 此处应用了反射
-            MyAnnotation annotation = Demo1.class.getAnnotation(MyAnnotation.class);
-            System.out.println(annotation);
-            //获取注解属性
-            System.out.println(annotation.color());
-            System.out.println(annotation.value());
-            //数组
-            int[] arrs = annotation.array();
-            for (int arr : arrs) {
-                System.out.println(arr);
-            }
-            //枚举
-            Gender gender = annotation.gender();
-            System.out.println("性别为：" + gender);
-            //获取注解属性
-            MetaAnnotation meta = annotation.metaAnnotation();
-            System.out.println(meta.birthday());
-        }
+        Map<String, String> m = new ConcurrentHashMap<>();
+        m.put("a", "test1");
+        ThreadLocal<String> sMain = new ThreadLocal<>();
+        sMain.set("test1");
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<>(10));
+        executor.execute(() -> {
+            ThreadLocal<String> s1 = new ThreadLocal<>();
+            m.put("b", "test2");
+            s1.set("test2");
+            System.out.println(JsonUtil.toJsonString(m));
+        });
+        executor.shutdown();
+        System.out.println(JsonUtil.toJsonString(m));
     }
 }
