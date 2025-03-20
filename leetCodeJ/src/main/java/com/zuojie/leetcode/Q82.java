@@ -1,5 +1,7 @@
 package com.zuojie.leetcode;
 
+import com.zuojie.leetcode.lib.ListNode;
+
 import java.util.*;
 
 public class Q82 {
