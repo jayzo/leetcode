@@ -1,6 +1,6 @@
 package com.zuojie.leetcode;
 
-import com.zuojie.demo.JsonUtil;
+import com.zuojie.leetcode.lib.JsonUtil;
 
 /**
  * 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使得出现次数超过两次的元素只出现两次 ，返回删除后数组的新长度。
