@@ -1,7 +1,6 @@
 package com.zuojie.leetcode;
 
-import com.zuojie.demo.JsonUtil;
-import com.zuojie.leetcode.lib.ListNode;
+import com.zuojie.leetcode.lib.JsonUtil;
 
 import java.util.*;
 

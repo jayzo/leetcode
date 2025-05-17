@@ -1,6 +1,6 @@
 package com.zuojie.leetcode;
 
-import com.zuojie.demo.JsonUtil;
+import com.zuojie.leetcode.lib.JsonUtil;
 
 //给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
 //

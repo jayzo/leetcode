@@ -1,10 +1,6 @@
 package com.zuojie.leetcode;
 
-import com.zuojie.demo.JsonUtil;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import com.zuojie.leetcode.lib.JsonUtil;
 
 /**
  给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列  ，请你从数组中找出满足相加之和等于目标数 target 的两个数。如果设这两个数分别是 numbers[index1] 和 numbers[index2] ，则 1 <= index1 < index2 <= numbers.length 。

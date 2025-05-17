@@ -1,10 +1,6 @@
 package com.zuojie.leetcode;
 
-import com.google.gson.Gson;
-import com.zuojie.demo.JsonUtil;
-import com.zuojie.demo.Pojo1;
-
-import java.util.Arrays;
+import com.zuojie.leetcode.lib.JsonUtil;
 
 public class Que27 {
     public int removeElement(int[] nums, int val) {

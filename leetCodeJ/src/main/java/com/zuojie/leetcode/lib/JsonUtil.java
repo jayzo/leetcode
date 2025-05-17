@@ -1,4 +1,4 @@
-package com.zuojie.demo;
+package com.zuojie.leetcode.lib;
 
 import com.google.gson.Gson;
 
