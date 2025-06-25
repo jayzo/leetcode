@@ -1,52 +1,44 @@
 package com.zuojie.leetcode;
 
+import com.zuojie.leetcode.lib.JsonUtil;
+
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        if (nums.length < 3) {
-            return new ArrayList<>();
+    public int minSubArrayLen(int target, int[] nums) {
+        if (nums.length == 0) {
+            return 0;
         }
-        if (nums.length == 3) {
-            if (nums[0] + nums[1] + nums[2] == 0) {
-                return List.of(Arrays.asList(nums[0], nums[1], nums[2]));
+        int ans = 0;
+        int sum = 0;
+        int l = 0;
+        int r = 0;
+        while (r < nums.length) {
+            // 扩大窗口
+            sum += nums[r++];
+            // 没到target, 继续扩大窗口
+            if (sum < target) {
+                continue;
             }
-        }
-        Arrays.sort(nums);
-        List<List<Integer>> ret = new ArrayList<>();
-        HashSet<String> added = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            int j = i + 1;
-            int k = nums.length - 1;
-            while (j < k) {
-                int sum = nums[i] + nums[j] + nums[k];
-                if (sum == 0) {
-                    String key = nums[i] + "_" + nums[j] + "_" + nums[k];
-//                    System.out.println(key);
-                    if (!added.contains(key)) {
-                        ret.add(Arrays.asList(nums[i], nums[j], nums[k]));
-                        added.add(key);
-                    }
-                    j++;
-                    k--;
-                } else if (sum < 0) {
-                    j++;
-                } else {
-                    k--;
-                }
+            // 减小窗口至sum不再超
+            while (sum >= target) {
+                sum -= nums[l];
+                l++;
             }
+            // 记录一次答案
+            ans = ans == 0 ? r-l+1 : Math.min(ans, r-l+1);
         }
-        return ret;
+        return ans;
     }
 
 
     public static void main(String[] args) throws InterruptedException {
         Solution s = new Solution();
-        int nums[] = {-1, 0, 1, 2, -1, -4};
-        System.out.println(s.threeSum(nums));
+        int[] nums = {1,2,3,4,5};
+        System.out.println(JsonUtil.toJsonString(s.minSubArrayLen(11, nums)));
 //        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(10), new ThreadPoolExecutor.AbortPolicy());
 //        while(true) {
 //            threadPoolExecutor.execute(() -> {
